@@ -1,0 +1,22 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "agy-tactile",
+  "displayName": "Codex 手感",
+  "version": "1.0.0",
+  "description": "把 Antigravity 的点击手感调成 Codex 那种：按下有轻微回弹、过渡跟手、开关带一点弹性，不再硬切。纯样式注入，不动安装目录。",
+  "logo": "assets/logo.png",
+  "author": {
+    "name": "大肥鱼 · Star Atelier"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ui",
+    "motion",
+    "tactile"
+  ],
+  "suggestedPrompts": [
+    "把点击回弹再调轻一点",
+    "开关的过渡太快了，慢半拍",
+    "这个插件怎么关掉"
+  ]
+}
