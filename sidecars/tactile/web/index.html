@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Codex 手感</title>
+<script src="/preload.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #14121b;
+    --card: rgba(255,255,255,.045);
+    --line: rgba(255,255,255,.10);
+    --text: #ecebf2;
+    --muted: rgba(236,235,242,.58);
+    --accent: #a78bfa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  html { background: #14121b; }
+  body {
+    background-color: #14121b;
+    background-image:
+      radial-gradient(120% 90% at 15% 0%, rgba(167,139,250,.20), rgba(167,139,250,0) 60%),
+      radial-gradient(90% 70% at 95% 10%, rgba(96,165,250,.14), rgba(96,165,250,0) 65%);
+    background-repeat: no-repeat;
+    color: var(--text);
+    font: 13px/1.55 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    padding: 20px 18px 28px;
+    overflow-y: auto;
+  }
+  .head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+  .mark {
+    width: 38px; height: 38px; border-radius: 12px; flex: none;
+    background: linear-gradient(145deg, #c4b5fd, #7c5cf0 60%, #4c1d95);
+    box-shadow: 0 8px 20px -10px rgba(124,92,240,.9), inset 0 1px 0 rgba(255,255,255,.35);
+    display: grid; place-items: center; font-size: 17px;
+  }
+  h1 { margin: 0; font-size: 15px; letter-spacing: .01em; }
+  .sub { color: var(--muted); font-size: 11.5px; margin-top: 3px; }
+  .pill {
+    margin-left: auto; font-size: 11px; padding: 3px 9px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--muted); white-space: nowrap;
+  }
+  .pill.on { color: #c4f5d4; border-color: rgba(110,231,168,.35); background: rgba(110,231,168,.10); }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 14px 16px; margin-bottom: 12px;
+    backdrop-filter: blur(10px);
+  }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .row + .row { margin-top: 14px; }
+  .label { font-size: 12.5px; }
+  .hint { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .grow { flex: 1; min-width: 0; }
+  .val { font-variant-numeric: tabular-nums; color: var(--accent); font-size: 12px; }
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 22px; background: transparent; margin: 6px 0 0;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px; border-radius: 999px;
+    background: linear-gradient(90deg, rgba(167,139,250,.85), rgba(96,165,250,.55));
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px; margin-top: -5px; border-radius: 50%;
+    background: #f4f1ff; border: 1px solid rgba(124,92,240,.7);
+    box-shadow: 0 2px 8px -2px rgba(124,92,240,.9);
+    transition: transform 120ms cubic-bezier(.32,.72,0,1);
+  }
+  input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.18); }
+  .switch {
+    width: 42px; height: 24px; border-radius: 999px; border: 1px solid var(--line);
+    background: rgba(255,255,255,.08); position: relative; cursor: pointer; flex: none;
+    transition: background-color 160ms cubic-bezier(.32,.72,0,1);
+  }
+  .switch span {
+    position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
+    background: #f4f1ff; transition: transform 200ms cubic-bezier(.2,.8,.2,1);
+  }
+  .switch[aria-checked="true"] { background: rgba(124,92,240,.85); border-color: transparent; }
+  .switch[aria-checked="true"] span { transform: translateX(18px); }
+  .demo { display: flex; gap: 8px; flex-wrap: wrap; }
+  .demo button {
+    font: inherit; font-size: 12px; color: var(--text); cursor: pointer;
+    background: rgba(255,255,255,.06); border: 1px solid var(--line);
+    border-radius: 10px; padding: 7px 12px;
+    transition: background-color var(--demo-dur) var(--demo-ease), transform 90ms var(--demo-ease);
+  }
+  .demo button:hover { background: rgba(255,255,255,.12); }
+  .demo button:active { transform: scale(var(--demo-press)); background: rgba(255,255,255,.16); }
+  .nav-demo { display: grid; gap: 4px; margin-top: 10px; }
+  .nav-demo div {
+    padding: 8px 10px; border-radius: 10px; color: var(--muted); cursor: pointer;
+    transition: background-color var(--demo-dur) var(--demo-ease), color var(--demo-dur) var(--demo-ease), transform 90ms var(--demo-ease);
+  }
+  .nav-demo div:hover { background: rgba(255,255,255,.075); color: var(--text); }
+  .nav-demo div:active { transform: scale(var(--demo-press)); background: rgba(255,255,255,.11); }
+  .foot { color: var(--muted); font-size: 11px; margin-top: 4px; }
+  .foot b { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="mark">⌘</div>
+    <div>
+      <h1>Codex 手感</h1>
+      <div class="sub">按下回弹 · 跟手过渡 · 开关弹性</div>
+    </div>
+    <div class="pill" id="status">连接中…</div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="grow">
+        <div class="label">启用</div>
+        <div class="hint">关掉即刻恢复原生手感</div>
+      </div>
+      <div class="switch" id="enabled" role="switch" aria-checked="true" tabindex="0"><span></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="label">按下幅度</div>
+      <div class="val grow" style="text-align:right" id="press-val">0.985</div>
+    </div>
+    <input type="range" id="press" min="0.94" max="1" step="0.001" value="0.985" />
+    <div class="hint">越接近 1 越闷，越小越弹</div>
+    <div class="row" style="margin-top:14px">
+      <div class="label">过渡时长</div>
+      <div class="val grow" style="text-align:right" id="dur-val">150ms</div>
+    </div>
+    <input type="range" id="duration" min="80" max="300" step="10" value="150" />
+    <div class="hint">120 更利落，190 更软</div>
+  </div>
+
+  <div class="card">
+    <div class="label" style="margin-bottom:10px">试一下手感</div>
+    <div class="demo">
+      <button>新建对话</button>
+      <button>保存</button>
+      <button>取消</button>
+    </div>
+    <div class="nav-demo">
+      <div>通用</div>
+      <div>外观</div>
+      <div>快捷键</div>
+    </div>
+  </div>
+
+  <div class="foot" id="foot">在聊天里发送 <b>[Codex 手感](sidecar://agy-tactile/tactile/)</b> 可随时打开本面板。</div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
