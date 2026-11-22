@@ -1,0 +1,20 @@
+{
+  "command": "node",
+  "args": [
+    "main.mjs"
+  ],
+  "restart_policy": "always",
+  "display_name": "Codex 手感",
+  "description": "把 Antigravity 的点击过渡调成 Codex 那种跟手回弹，面板里可调按下幅度与时长。",
+  "has_web_ui": true,
+  "ui_config": {
+    "display_name": "Codex 手感",
+    "views": [
+      {
+        "path": "/",
+        "entrypoint": "SIDECAR_UI_ENTRYPOINT_AUX_PANE",
+        "title": "Codex 手感"
+      }
+    ]
+  }
+}
